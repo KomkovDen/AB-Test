@@ -1,0 +1,31 @@
+﻿@model List<IGrouping<string, WebAPI.Models.Experiment>>
+
+<h2>Список экспериментов</h2>
+
+<div style="display: flex; flex-direction: row;">
+    @foreach (var group in Model)
+    {
+        <table style="margin-left: 100px; margin-right: 150px ">
+            <thead>
+                <tr>
+                    <th colspan="3">@group.Key</th>
+                </tr>
+                <tr>
+                    <th>Device Token</th>
+                    <th>Значение</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var experiment in group)
+                {
+                    <tr>
+                        <td>@experiment.DeviceToken</td>
+                        <td>@experiment.Value</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<p>Общее количество устройств: @Model.SelectMany(g => g).Select(e => e.DeviceToken).Distinct().Count()</p>
